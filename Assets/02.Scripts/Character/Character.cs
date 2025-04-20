@@ -1,0 +1,57 @@
+using UnityEngine;
+
+public partial class Character : MonoBehaviour
+{
+    protected Rigidbody2D rb;
+
+    [SerializeField] protected Status status;
+
+    public SpriteRenderer characterSR;
+
+    protected int CurrentHealth;
+
+    protected float StunRemain;
+    protected float RootRemain;
+
+    protected bool IsAlive;
+
+    public bool IsStuned { get { return StunRemain > 0; } }
+    public bool IsRooted { get { return RootRemain > 0; } }
+
+    public bool CanMove { get { return !IsStuned && !IsRooted; } }
+
+    public void Awake()
+    {
+
+    }
+
+    protected virtual void Update()
+    {
+        StunRemain = Mathf.Max(StunRemain - Time.deltaTime, 0);
+        RootRemain = Mathf.Max(RootRemain - Time.deltaTime, 0);
+    }
+
+    protected virtual void Init()
+    {
+        CurrentHealth = status.Health;
+
+        IsAlive = true;
+    }
+
+    protected virtual bool Dead()
+    {
+        if (!IsAlive)
+        {
+            return false;
+        }
+
+        IsAlive = false;
+
+        return true;
+    }
+
+    public virtual void AttackOnHit(int damage)
+    {
+        OnHit?.Invoke(damage);
+    }
+}

@@ -1,0 +1,10 @@
+Name,Explain,Percent,PercentPerLevel
+BaseAttack,Lv.level\n주기적으로 전방에 damage(공격력의 percentage%)만큼의 피해,0.9,0.1
+SwordRain,"Lv.level\n주기적으로 무작위 위치에 damage(공격력의 percentage%)만큼의 피해를 주는 범위 공격, 해당 위치에 머무는 동안 공격력이 increase_mass만큼 증가",null,null
+SwordSpin,Lv.level\n회전하며 damage(공격력의 percengae%)만큼의 피해를 주는 검을 sword_mass 개 생성,null,null
+ArrowThrow,Lv.level\n주기적으로 throw_mass개의 화살을 발사하여 damage(공격력의 percentage%)만큼의 피해,null,null
+Earthquake,"Lv.level\n주기적으로 대검을 소한하여 닿는 적에게 damage(공격력의 percentage%)만큼의 피해, 적중한 적 0.5초간 기절",null,null
+PowerIncrease,공격력 10% 증가,null,null
+DefenseIncrease,방어력 10% 증가,null,null
+HealthIncrease,체력 10% 증가,null,null
+ExpGetIncrease,경험치 획득량 10% 증가,null,null
