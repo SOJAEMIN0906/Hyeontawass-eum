@@ -3,22 +3,22 @@ using UnityEngine;
 
 public class DamageApplier : MonoBehaviour
 {
-    [SerializeField] EDamageApplier EDamageApplier;
+    [SerializeField] protected EDamageApplier EDamageApplier;
 
-    int damage;
-    int criticalRate;
-    float criticalDamage;
+    protected int damage;
+    protected int criticalRate;
+    protected int criticalDamage;
 
-    Action<int> hitReact;
+    protected Action<int> hitReact;
 
-    public virtual void SetValue(int damage, int criticalRate, float criticalDamage)
+    public virtual void SetValue(int damage, int criticalRate, int criticalDamage)
     {
         this.damage = damage;
         this.criticalRate = criticalRate;
         this.criticalDamage = criticalDamage;
     }
 
-    public virtual void SetValue(int damage, int criticalRate, float criticalDamage, Action<int> hitReact)
+    public virtual void SetValue(int damage, int criticalRate, int criticalDamage, Action<int> hitReact)
     {
         this.damage = damage;
         this.criticalRate = criticalRate;
@@ -39,7 +39,7 @@ public class DamageApplier : MonoBehaviour
         var character = collision.GetComponent<Character>();
         if (character != null)
         {
-            character.ApplyDamage((int)(damage * UnityEngine.Random.Range(0, 1000) < criticalRate ? 1 : criticalDamage), out int finalDamage);
+            character.ApplyDamage((int)(damage * (UnityEngine.Random.Range(0, 1000) < criticalRate ? criticalDamage * 0.01f : 1)), out int finalDamage);
 
             hitReact?.Invoke(finalDamage);
         }

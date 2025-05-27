@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 
 public partial class Player : Character
 {
@@ -28,6 +29,16 @@ public partial class Player : Character
         }
     }
 
+    public List<Skill> GetSkillList()
+    {
+        return skillDic.Values.ToList();
+    }
+
+    public Skill[] GetSkillArray()
+    {
+        return skillDic.Values.ToArray();
+    }
+
     public void SkillLevelUp(EPlayerSkill ePlayerSkill, Skill skill)
     {
         if (skillDic.ContainsKey(ePlayerSkill))
@@ -37,8 +48,14 @@ public partial class Player : Character
         else
         {
             skill.transform.SetParent(SkillTrans);
+            skill.transform.localPosition = UnityEngine.Vector3.zero;
             skill.Init();
             skillDic.Add(ePlayerSkill, skill);
+            skill.LevelUp();
         }
+
+        StatusChanged?.Invoke();
+
+        SaveSkillData();
     }
 }

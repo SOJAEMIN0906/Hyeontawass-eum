@@ -1,11 +1,39 @@
+using System;
+using UnityEngine;
+using UnityEngine.UI;
+
 public partial class Player : Character
 {
+    public Image expBar;
+
     public int Level { get; private set; }
 
-    int needToLevelUp; //8 + level * 2
+    int needToLevelUpEasy { get { return 9 + Level; } }
+    int needToLevelUpNorm { get { return 5 + Level * 5; } }
+    int needToLevelUpHard { get { return (int)(8 * Mathf.Pow(Level, 3f / 4) * Mathf.Log10(8 * Level)); } }
+
+    int needToLevelUp
+    {
+        get
+        {
+            switch (StaticData.Instance.gameHardness)
+            {
+                case EGameHardness.Normal:
+                    return needToLevelUpNorm;
+
+                case EGameHardness.Hard:
+                    return needToLevelUpHard;
+
+                case EGameHardness.Easy:
+                default:
+                    return needToLevelUpEasy;
+            }
+        }
+    }
+
     public int nowExp { get; private set; }
 
-    float expBonus = 1;
+    public float expBonus { get; private set; }
 
     public void AddExpBonus(float expBonus)
     {
@@ -16,22 +44,28 @@ public partial class Player : Character
     {
         nowExp += (int)(mass * expBonus);
 
-        int levelUpCount = 0;
-
-        for (; nowExp >= needToLevelUp;)
+        if (nowExp >= needToLevelUp)
         {
-            nowExp -= needToLevelUp;
-
-            Level++;
-            levelUpCount++;
-
-            needToLevelUp = 8 + Level * 2;
+            LevelUp();
         }
 
-        if (levelUpCount > 0)
-        {
-            CurrentHealth = status.Health;
-            StatusChanged?.Invoke();
-        }
+        ExpBarCtrl();
+    }
+
+    public void LevelUp()
+    {
+        nowExp = Mathf.Max(nowExp - needToLevelUp, 0);
+
+        Level++;
+
+        //CurrentHealth = status.Health;
+        StatusChanged?.Invoke();
+
+        LevelUped();
+    }
+
+    public void ExpBarCtrl()
+    {
+        expBar.fillAmount = Mathf.Min((float)nowExp / needToLevelUp, 1f);
     }
 }

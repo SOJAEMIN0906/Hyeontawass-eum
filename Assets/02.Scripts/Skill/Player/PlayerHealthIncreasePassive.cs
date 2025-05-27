@@ -1,13 +1,6 @@
 public class PlayerHealthIncreasePassive : Skill, IPassive
 {
-    public float addExp { get; private set; }
-
-    void Awake()
-    {
-        addExp = 0.1f;
-
-        Passive();
-    }
+    public readonly float addExp = 0.1f;
 
     public override void LevelUp()
     {

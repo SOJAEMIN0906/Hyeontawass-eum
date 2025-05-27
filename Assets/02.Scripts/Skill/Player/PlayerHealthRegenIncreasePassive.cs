@@ -4,14 +4,7 @@ using UnityEngine;
 
 public class PlayerHealthRegenIncreasePassive : Skill, IPassive
 {
-    public int addBonus { get; private set; }
-
-    void Awake()
-    {
-        addBonus = 1;
-
-        Passive();
-    }
+    public readonly int addBonus = 2;
 
     public override void LevelUp()
     {

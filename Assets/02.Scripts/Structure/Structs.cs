@@ -51,6 +51,15 @@ public struct TimeStruct
         Seconds += seconds;
     }
 
+    public float GetTotalSeconds()
+    {
+        return Seconds;    }
+
+    public static TimeStruct operator +(TimeStruct timeStruct, float seconds)
+    {
+        return new(timeStruct.Seconds + seconds);
+    }
+
     public TimeStruct(float second)
     {
         Seconds = second;

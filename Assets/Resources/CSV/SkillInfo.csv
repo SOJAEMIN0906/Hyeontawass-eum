@@ -1,10 +1,17 @@
-Name,Explain,Percent,PercentPerLevel
-BaseAttack,Lv.level\n주기적으로 전방에 damage(공격력의 percentage%)만큼의 피해,0.9,0.1
-SwordRain,"Lv.level\n주기적으로 무작위 위치에 damage(공격력의 percentage%)만큼의 피해를 주는 범위 공격, 해당 위치에 머무는 동안 공격력이 increase_mass만큼 증가",null,null
-SwordSpin,Lv.level\n회전하며 damage(공격력의 percengae%)만큼의 피해를 주는 검을 sword_mass 개 생성,null,null
-ArrowThrow,Lv.level\n주기적으로 throw_mass개의 화살을 발사하여 damage(공격력의 percentage%)만큼의 피해,null,null
-Earthquake,"Lv.level\n주기적으로 대검을 소한하여 닿는 적에게 damage(공격력의 percentage%)만큼의 피해, 적중한 적 0.5초간 기절",null,null
-PowerIncrease,공격력 10% 증가,null,null
-DefenseIncrease,방어력 10% 증가,null,null
-HealthIncrease,체력 10% 증가,null,null
-ExpGetIncrease,경험치 획득량 10% 증가,null,null
+Name,Explain,DetailExplain,Percent,PercentPerLevel
+BaseAttack,Lv.level\n주기적으로 전방에 damage(공격력의 percentage%)만큼의 피해,주기적으로 전방에 공격력의 percentage%(기본 피해량 90% + 스킬 레벨 * 10%)만큼의 피해,0.9,0.1
+SwordRain,Lv.level\n주기적으로 무작위 위치에 damage(공격력의 percentage%)만큼의 피해를 주는 범위 공격 및 잔류 검 피격 시 반대 방향으로 날아가 피해,주기적으로 무작위 위치에 공격력의 percentage%(기본 피해량 60% + 스킬 레벨 * 20%)만큼의 피해를 주는 범위 공격 및 남아 있는 검이 공격 방향으로 날아가 동일한 피해,0.6,0.2
+SwordSpin,Lv.level\n회전하며 damage(공격력의 percentage%)만큼의 피해를 주는 검을 sword_mass개 생성(최대 8개),회전하며 공격력의 percentage%(기본 피해량 40% + 스킬 레벨 * 10%)만큼의 피해를 주는 검을 sword_mass(1 + 스킬 레벨 5 당 1)개 생성 (최대 8개),0.3,0.1
+SwordThrow,Lv.level\n주기적으로 throw_mass개의 검을 발사하여 damage(공격력의 percentage%)만큼의 피해,주기적으로 throw_mass개(1 + 스킬 레벨 5 당 1)의 검을 발사하여 공격력의 percentage%(기본 피해량 50% + 스킬 레벨 * 10%)만큼의 피해,0.5,0.1
+Earthquake,Lv.level\n주기적으로 대검을 소한하여 닿는 적에게 damage(공격력의 percentage%)만큼의 피해 및 생성된 균열에 적중한 적 0.5초간 기절,주기적으로 대검(스킬 레벨에 따라 크기 10% 증가)을 소한하여 닿는 적에게 공격력의 percentage%(기본 피해량 120% + 스킬 레벨 * 20%)만큼의 피해 및 생성된 균열(3초 지속)에 적중한 적 0.5초간 기절,1.2,0.2
+WarriorAura,Lv.level\n주기적으로 대검을 소한하여 닿는 적에게 damage(공격력의 percentage%)만큼의 피해 및 적중한 적 0.5초간 기절,주기적으로 대검(스킬 레벨에 따라 크기 10% 증가)을 소한하여 닿는 적에게 공격력의 percentage%(기본 피해량 120% + 스킬 레벨 * 20%)만큼의 피해 및 생성된 균열(3초 지속)에 적중한 적 0.5초간 기절,0.5,0.1
+AttackSpeedIncrease,공격 속도 10% 증가,공격 속도 10% 증가,null,null
+AttackScaleIncrease,공격 크기 10% 증가,공격 크기 10% 증가,null,null
+PowerIncrease,공격력 10% 증가,공격력 10% 증가,null,null
+CriticalRateIncrease,치명타 확률 2.5% 증가,치명타 확률 2.5% 증가(최대 100% 초과 시 초과분의 두배만큼 치명타 피해량 증가),null,null
+CriticalDamageIncrease,치명타 피해량 10% 증가,치명타 피해량 10% 증가,null,null
+DefenseIncrease,방어력 10% 증가,방어력 10% 증가,null,null
+HealthIncrease,체력 10% 증가,체력 10% 증가,null,null
+HealthRegenIncrease,초당 체력 회복량 2 증가,초당 체력 회복량 2 증가,null,null
+MovementSpeedIncrease,이동 속도 10 증가,이동 속도 10 증가,null,null
+ExpGetIncrease,경험치 획득량 10% 증가,경험치 획득량 10% 증가,null,null

@@ -2,9 +2,9 @@ using UnityEngine;
 
 public partial class Monster : Character
 {
-    Transform player;
+    protected Transform player;
 
-    void MoveCheck()
+    protected virtual void MoveCheck()
     {
         if (!CanMove)
         {
@@ -13,7 +13,10 @@ public partial class Monster : Character
             return;
         }
 
-        rb.velocity = (player.position - transform.position).normalized * status.Speed * 0.01f;
+        Vector2 dis = player.position - transform.position;
+        rb.velocity = 0.01f * status.Speed * dis.normalized;
         characterSR.flipX = rb.velocity.x > 0;
+
+        objCtrl[Mathf.Min((int)dis.sqrMagnitude / 70, 2)]();
     }
 }

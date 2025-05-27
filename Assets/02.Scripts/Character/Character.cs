@@ -8,7 +8,7 @@ public partial class Character : MonoBehaviour
 
     public SpriteRenderer characterSR;
 
-    protected int CurrentHealth;
+    [SerializeField] protected int CurrentHealth;
 
     protected float StunRemain;
     protected float RootRemain;
@@ -18,9 +18,9 @@ public partial class Character : MonoBehaviour
     public bool IsStuned { get { return StunRemain > 0; } }
     public bool IsRooted { get { return RootRemain > 0; } }
 
-    public bool CanMove { get { return !IsStuned && !IsRooted; } }
+    public virtual bool CanMove { get { return !IsStuned && !IsRooted; } }
 
-    public void Awake()
+    public virtual void Awake()
     {
 
     }
@@ -35,6 +35,9 @@ public partial class Character : MonoBehaviour
     {
         CurrentHealth = status.Health;
 
+        StunRemain = 0;
+        RootRemain = 0;
+
         IsAlive = true;
     }
 
@@ -46,6 +49,8 @@ public partial class Character : MonoBehaviour
         }
 
         IsAlive = false;
+
+        OnDead?.Invoke();
 
         return true;
     }

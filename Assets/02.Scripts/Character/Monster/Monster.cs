@@ -6,6 +6,8 @@ public partial class Monster : Character
 
     public Transform EffectTrans;
 
+    [SerializeField] EMonsterName eMonsterName;
+
     int expReward;
     int moneyReward;
 
@@ -15,6 +17,12 @@ public partial class Monster : Character
 
         player = GameManager.Instance.player.transform;
 
+        GameManager.Instance.DestroyAllEnemy += DestroyObj;
+
+        objCtrl[0] = EnableSprite;
+        objCtrl[1] = DisableSprite;
+        objCtrl[2] = DestroyObj;
+
         Init();
     }
 
@@ -23,7 +31,12 @@ public partial class Monster : Character
         //expReward
         //moneyReward
 
-        finalStatus = status * (1 + GameManager.Instance.gameTime.Minutes * 0.01f);
+        finalStatus = status * (1 + ((int)GameManager.Instance.gameTime.GetTotalSeconds() >> 5));
+        CurrentHealth = finalStatus.Health;
+
+        expReward = Mathf.Min(Mathf.Max((finalStatus.Power + finalStatus.Health + finalStatus.HealthRegen + finalStatus.Defense + finalStatus.Speed) >> 8, 4), 400);
+
+        Init();
     }
 
     protected override void Init()
@@ -36,6 +49,10 @@ public partial class Monster : Character
         base.Update();
 
         StateCheck();
+    }
+
+    protected void FixedUpdate()
+    {
         MoveCheck();
     }
 
@@ -46,8 +63,13 @@ public partial class Monster : Character
             return false;
         }
 
+        GameManager.Instance.huntCount++;
+
         GameManager.Instance.player.GetExp(expReward);
-        GameManager.Instance.MoneyGet(moneyReward);
+        //GameManager.Instance.MoneyGet(moneyReward);
+
+        GameManager.Instance.EnemyDestroyed();
+        PoolManager.Instance.PushMonster(eMonsterName, this);
 
         return true;
     }

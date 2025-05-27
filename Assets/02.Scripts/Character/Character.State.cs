@@ -18,6 +18,16 @@ public partial class Character : MonoBehaviour
 
     }
 
+    public virtual void AddStun(float cnt)
+    {
+        StunRemain += cnt;
+    }
+
+    public virtual void AddRoot(float cnt)
+    {
+        RootRemain += cnt;
+    }
+
     public virtual bool ApplyDamage(int damage)
     {
         if (!IsAlive)
@@ -31,8 +41,12 @@ public partial class Character : MonoBehaviour
 
         CurrentHealth = Mathf.Max(CurrentHealth - damage, 0);
 
+        HealthCheck();
+
         if (CurrentHealth <= 0)
         {
+            Dead();
+
             return true;
         }
 
@@ -56,8 +70,12 @@ public partial class Character : MonoBehaviour
 
         CurrentHealth = Mathf.Max(CurrentHealth - damage, 0);
 
+        HealthCheck();
+
         if (CurrentHealth <= 0)
         {
+            Dead();
+
             return true;
         }
 

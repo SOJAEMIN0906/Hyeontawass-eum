@@ -1,18 +1,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum EDamageApplier
-{
-    PlayerBaseAttack,
-}
-
 public class PoolManager : MonoBehaviour
 {
     public static PoolManager Instance;
 
-    Queue<DamageApplier>[] damageApplierPools = new Queue<DamageApplier>[1];
+    Queue<DamageApplier>[] damageApplierPools = new Queue<DamageApplier>[(int)EDamageApplier.Max];
 
-    Queue<Monster>[] monsterPools = new Queue<Monster>[(int)EMonsterGrade.Max];
+    Queue<Monster>[] monsterPools = new Queue<Monster>[(int)EMonsterName.Max];
+
+    Dictionary<string, Queue<GameObject>> objPools = new();
 
     private void Awake()
     {
@@ -55,7 +52,9 @@ public class PoolManager : MonoBehaviour
         damageApplierPools[(int)eDamageApplier].Enqueue(damageApplier);
     }
 
-    public Monster PoolMonster(EMonsterGrade eMonster)
+    //int mass;
+
+    public Monster PoolMonster(EMonsterName eMonster)
     {
         if (monsterPools[(int)eMonster].Count > 0)
         {
@@ -63,16 +62,47 @@ public class PoolManager : MonoBehaviour
         }
         else
         {
-            return Instantiate(
+            GameObject obj = Instantiate(
                 Resources.Load<GameObject>("Prefab/Enemy/" + eMonster.ToString())
-                ).GetComponent<Monster>();
+                );
+            //obj.name = obj.name + " " + mass.ToString();
+            //mass++;
+            obj.hideFlags = HideFlags.HideInHierarchy;
+            return obj.GetComponent<Monster>();
         }
     }
 
-    public void PushMonster(EMonsterGrade eMonster, Monster monster)
+    public void PushMonster(EMonsterName eMonster, Monster monster)
     {
         monster.gameObject.SetActive(false);
         monster.transform.SetParent(transform);
         monsterPools[(int)eMonster].Enqueue(monster);
+    }
+
+    public GameObject PoolObject(string path)
+    {
+        if (objPools.ContainsKey(path) && objPools[path].Count > 0)
+        {
+            return objPools[path].Dequeue();
+        }
+        else
+        {
+            return Resources.Load<GameObject>(path);
+        }
+    }
+
+    public void PushObject(string path, GameObject obj)
+    {
+        if (objPools.ContainsKey(path))
+        {
+            objPools[path].Enqueue(obj);
+        }
+        else
+        {
+            Queue<GameObject> objs = new();
+            objs.Enqueue(obj);
+
+            objPools.Add(path, objs);
+        }
     }
 }

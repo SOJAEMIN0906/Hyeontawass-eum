@@ -1,13 +1,6 @@
 public class PlayerAttackScaleIncreasePassive : Skill, IPassive
 {
-    public float addBonus { get; private set; }
-
-    void Awake()
-    {
-        addBonus = 0.1f;
-
-        Passive();
-    }
+    public readonly float addBonus = 0.1f;
 
     public override void LevelUp()
     {

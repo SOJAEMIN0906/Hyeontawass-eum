@@ -25,18 +25,21 @@ public class CSVLoader
 
         string[] headers = infos[0].Split(',');
 
-        for (int i = 1; i < headers.Length; i++)
+        for (int i = 1; i < infos.Length; i++)
         {
             string[] data = infos[i].Split(',');
 
-            Dictionary<string, string> keyValuePairs = new();
-
-            for (int row = 1; row < data.Length; row++)
+            if (data.Length == headers.Length)
             {
-                keyValuePairs.Add(headers[row], data[row]);
-            }
+                Dictionary<string, string> keyValuePairs = new();
 
-            skillInfoDic.Add(data[0], keyValuePairs);
+                for (int row = 1; row < headers.Length; row++)
+                {
+                    keyValuePairs.TryAdd(headers[row].Trim(), data[row].Trim());
+                }
+
+                skillInfoDic.Add(data[0], keyValuePairs);
+            }
         }
     }
 

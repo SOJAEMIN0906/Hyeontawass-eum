@@ -1,13 +1,6 @@
 public class PlayerPowerIncreasePassive : Skill, IPassive
 {
-    public float addPower { get; private set; }
-
-    void Awake()
-    {
-        addPower = 0.1f;
-
-        Passive();
-    }
+    public readonly float addPower = 0.1f;
 
     public override void LevelUp()
     {

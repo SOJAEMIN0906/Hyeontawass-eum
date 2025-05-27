@@ -2,42 +2,42 @@ using UnityEngine;
 
 public class MonsterInRangeAttack : MonoBehaviour
 {
-    bool playerInRange;
+    Monster monster;
 
-    bool canAttack { get { return currentCount >= attackCount; } }
+    bool canAttack { get { return currentCnt >= 1; } }
 
-    public int attackCount = 10;
-    int currentCount = 0;
+    float currentCnt = 0;
+    float radius;
 
     int damage;
 
-    private void OnEnable()
+    private void Awake()
     {
-        damage = GetComponentInParent<Monster>().finalStatus.Power;
+        monster = GetComponentInParent<Monster>();
+        radius = GetComponent<CircleCollider2D>().radius;
     }
 
-    private void FixedUpdate()
+    private void OnEnable()
+    {
+        damage = monster.finalStatus.Power;
+    }
+
+    private void Update()
     {
         if (!canAttack)
         {
-            currentCount++;
-            return;
+            currentCnt += Time.deltaTime;
         }
+    }
 
-        if (playerInRange)
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        Player player = GameManager.Instance.player;
+
+        if (canAttack && monster.CanMove && (transform.position - player.transform.position).sqrMagnitude <= radius)
         {
-            GameManager.Instance.player.ApplyDamage(damage);
-            currentCount = 0;
+            player.ApplyDamage(damage);
+            currentCnt = 0;
         }
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        playerInRange = true;
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        playerInRange = false;
     }
 }

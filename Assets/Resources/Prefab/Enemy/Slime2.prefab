@@ -73,12 +73,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 26758f7177e97eb4ca7ef4ca487584ff, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 12b487c2f2b1f8543baae42f41f2863e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.13, y: 0.81}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -162,15 +162,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   status:
-    Power: 4
-    Health: 20
-    HealthRegen: 1
-    Defense: 2
+    Power: 8
+    Health: 80
+    HealthRegen: 2
+    Defense: 4
     Speed: 50
   characterSR: {fileID: 317918887217775147}
   StunEff: {fileID: 1864790736793529776}
   RootEff: {fileID: 7604261018034774203}
   EffectTrans: {fileID: 8752872411578815417}
+  eMonsterName: 0
 --- !u!58 &3496145286020626975
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -370,7 +371,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f99524472efaa4428ea777b81002504, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackCount: 10
 --- !u!1 &7120885192857291859
 GameObject:
   m_ObjectHideFlags: 0
